@@ -1,0 +1,110 @@
+{
+  "schema": "entity-cleanroom-vector-manifest-v1",
+  "canonical_json": "lexicographic recursive object keys, compact UTF-8 JSON",
+  "vectors": [
+    {
+      "name": "valid_golden",
+      "file": "valid_golden.json",
+      "expected": {
+        "overall_valid": true,
+        "error_codes": []
+      }
+    },
+    {
+      "name": "invalid_root_tamper",
+      "file": "invalid_root_tamper.json",
+      "expected": {
+        "overall_valid": false,
+        "error_codes": [
+          "ROOT_MISMATCH"
+        ]
+      }
+    },
+    {
+      "name": "invalid_missing_rights",
+      "file": "invalid_missing_rights.json",
+      "expected": {
+        "overall_valid": false,
+        "error_codes": [
+          "MISSING_SECTION:rights"
+        ]
+      }
+    },
+    {
+      "name": "invalid_usage_purpose",
+      "file": "invalid_usage_purpose.json",
+      "expected": {
+        "overall_valid": false,
+        "error_codes": [
+          "USAGE_PURPOSE_UNAUTHORIZED"
+        ]
+      }
+    },
+    {
+      "name": "invalid_settlement_direction",
+      "file": "invalid_settlement_direction.json",
+      "expected": {
+        "overall_valid": false,
+        "error_codes": [
+          "SETTLEMENT_DIRECTION_INVALID"
+        ]
+      }
+    },
+    {
+      "name": "invalid_commodity_over_settlement",
+      "file": "invalid_commodity_over_settlement.json",
+      "expected": {
+        "overall_valid": false,
+        "error_codes": [
+          "COMMODITY_EXCEEDS_SETTLEMENT"
+        ]
+      }
+    },
+    {
+      "name": "invalid_capital_unbalanced",
+      "file": "invalid_capital_unbalanced.json",
+      "expected": {
+        "overall_valid": false,
+        "error_codes": [
+          "CAPITAL_ACCOUNTING_UNBALANCED"
+        ]
+      }
+    },
+    {
+      "name": "invalid_capital_shares",
+      "file": "invalid_capital_shares.json",
+      "expected": {
+        "overall_valid": false,
+        "error_codes": [
+          "CAPITAL_SHARES_UNRECONCILED"
+        ]
+      }
+    },
+    {
+      "name": "invalid_ledger_continuity",
+      "file": "invalid_ledger_continuity.json",
+      "expected": {
+        "overall_valid": false,
+        "error_codes": [
+          "LEDGER_PREV_HASH_INVALID"
+        ]
+      }
+    },
+    {
+      "name": "invalid_signature",
+      "file": "invalid_signature.json",
+      "expected": {
+        "overall_valid": false,
+        "error_codes": [
+          "SIGNATURE_INVALID"
+        ]
+      }
+    }
+  ],
+  "valid_transaction_root_sha256": "7675954822a2adc2fccf9fb44bc4728f92e93d9741f9b4b669bebd6844f697a1",
+  "recovery": {
+    "manifest_file": "recovery/RECOVERY_MANIFEST.json",
+    "state_file": "recovery/STATE_BACKUP.enc",
+    "test_key_file": "test_inputs/recovery_key.hex"
+  }
+}

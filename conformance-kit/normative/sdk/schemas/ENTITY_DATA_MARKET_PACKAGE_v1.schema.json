@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ENTITY_DATA_MARKET_PACKAGE_v1.schema.json",
+  "title": "ENTITY Data Market Evidence Package v1",
+  "type": "object",
+  "required": ["schema","market_id","created_at_ms","operator_entity_id","head_hash","sequence","tables","manifests","external_trust","provider_independent","raw_data_included","package_sha256","signature"],
+  "properties": {
+    "schema": {"const": "entity-data-market-package-v1"},
+    "market_id": {"type": "string","minLength": 8},
+    "created_at_ms": {"type": "integer","minimum": 1},
+    "operator_entity_id": {"type": "string","minLength": 8},
+    "head_hash": {"type": "string","pattern": "^[0-9a-f]{64}$"},
+    "sequence": {"type": "integer","minimum": 0},
+    "tables": {"type": "object"},
+    "manifests": {"type": "object"},
+    "external_trust": {"type": "object"},
+    "provider_independent": {"const": true},
+    "raw_data_included": {"const": false},
+    "package_sha256": {"type": "string","pattern": "^[0-9a-f]{64}$"},
+    "signature": {"type": "object"}
+  },
+  "additionalProperties": false
+}

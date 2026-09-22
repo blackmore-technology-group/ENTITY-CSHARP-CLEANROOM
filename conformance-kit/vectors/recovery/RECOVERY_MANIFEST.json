@@ -1,0 +1,17 @@
+{
+  "schema": "entity-cleanroom-recovery-manifest-v1",
+  "transaction_root_sha256": "7675954822a2adc2fccf9fb44bc4728f92e93d9741f9b4b669bebd6844f697a1",
+  "transaction_bundle_sha256": "f0949b19c8607f4ec3b0188d7261e0348204b0ef68431a05432b5d0dea6b9ee0",
+  "encrypted_state_sha256": "59d577a8ab6f5922fecc70f3e016c1271ff7beb824825373b0a238199e7fb6cd",
+  "cipher": "AES-256-GCM",
+  "nonce_b64": "emJyvk6rsZamMkdN",
+  "tag_bytes": 16,
+  "recovery_key_fingerprint_sha256": "e48977b64815bc38e5a1d7e8005ddf1b718c03f0a1bfcd035e2f45675aa3684d",
+  "issuer_entity_id": "ent2-issuer-00000001",
+  "signature": {
+    "alg": "Ed25519",
+    "key_id": "campaign-ed25519-1",
+    "public_key_spki_der_b64": "MCowBQYDK2VwAyEAnz7cRvy96nj9rz51YL98/JRk7IhImup4FsR9Sy6gbQI=",
+    "sig_b64": "NM29IE+EKslnTP9lCJQGQXM0trl7G3SPdAesmhcO6bS/9hZJD0IZTAdVsPohsB7suJXDDl4Dqd10aiteAtFfDw=="
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ENTITY_DATA_MARKET_ORDER_v1.schema.json",
+  "title": "ENTITY Data Market Signed Order v1",
+  "type": "object",
+  "required": ["schema","entity_id","market_id","instrument_id","side","quantity","limit_price_minor","currency","time_in_force","order_nonce","created_at_ms","expires_at_ms","signature"],
+  "properties": {
+    "schema": {"const": "entity-data-market-order-v1"},
+    "entity_id": {"type": "string","minLength": 8},
+    "market_id": {"type": "string","minLength": 8},
+    "instrument_id": {"type": "string","minLength": 8},
+    "side": {"enum": ["BUY","SELL"]},
+    "quantity": {"type": "integer","minimum": 1},
+    "limit_price_minor": {"type": "integer","minimum": 0},
+    "currency": {"type": "string","minLength": 1,"maxLength": 16},
+    "time_in_force": {"enum": ["GTC","IOC"]},
+    "purpose": {"type": ["string","null"]},
+    "order_nonce": {"type": "string","minLength": 1},
+    "created_at_ms": {"type": "integer","minimum": 1},
+    "expires_at_ms": {"type": "integer","minimum": 1},
+    "signature": {"type": "object"}
+  },
+  "additionalProperties": false
+}

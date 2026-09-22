@@ -1,0 +1,206 @@
+{
+  "schema": "entity-transaction-evidence-bundle-v1",
+  "transaction_id": "txev1-0123456789abcdef0123456789abcdef01234567",
+  "issuer_entity_id": "ent2-issuer-00000001",
+  "transaction_root_sha256": "7675954822a2adc2fccf9fb44bc4728f92e93d9741f9b4b669bebd6844f697a1",
+  "generated_at_ms": 1770000000000,
+  "evidence": {
+    "transaction_record": {
+      "transaction_id": "txev1-0123456789abcdef0123456789abcdef01234567",
+      "asset_id": "asset-00000001",
+      "grantor_entity_id": "ent2-issuer-00000001",
+      "licensee_entity_id": "ent2-buyer-000000001"
+    },
+    "manifests": {
+      "issuer": {
+        "entity_id": "ent2-issuer-00000001",
+        "key_id": "campaign-ed25519-1",
+        "public_key_spki_der_b64": "MCowBQYDK2VwAyEAnz7cRvy96nj9rz51YL98/JRk7IhImup4FsR9Sy6gbQI="
+      },
+      "buyer": {
+        "entity_id": "ent2-buyer-000000001"
+      }
+    },
+    "asset_provenance": {
+      "provenance_id": "prov-00000001",
+      "asset_id": "asset-00000001",
+      "asset_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "source_entity_id": "ent2-issuer-00000001"
+    },
+    "rights": {
+      "claim_id": "rights-0000001",
+      "asset_id": "asset-00000001",
+      "claimant_entity_id": "ent2-issuer-00000001",
+      "right_type": "LICENCE_AUTHORITY",
+      "provenance_id": "prov-00000001"
+    },
+    "licence": {
+      "licence_id": "licence-00000001",
+      "asset_id": "asset-00000001",
+      "grantor_entity_id": "ent2-issuer-00000001",
+      "licensee_entity_id": "ent2-buyer-000000001",
+      "rights_claim_id": "rights-0000001",
+      "authorized_purpose": "research",
+      "max_uses": 10
+    },
+    "usage_receipt": {
+      "usage_id": "usage-000000001",
+      "licence_id": "licence-00000001",
+      "asset_id": "asset-00000001",
+      "user_entity_id": "ent2-buyer-000000001",
+      "purpose": "research",
+      "units": 2
+    },
+    "license_settlement": {
+      "settlement_id": "settle-00000001",
+      "licence_id": "licence-00000001",
+      "payer_entity_id": "ent2-buyer-000000001",
+      "payee_entity_id": "ent2-issuer-00000001",
+      "amount_minor": 5000,
+      "currency": "CAD",
+      "verified_external": true,
+      "external_reference": "bank-ref-0001"
+    },
+    "value_record": {
+      "asset_id": "asset-00000001",
+      "settlement_id": "settle-00000001",
+      "realized_external": true,
+      "amount_minor": 5000,
+      "currency": "CAD"
+    },
+    "digital_commodity": {
+      "commodity_id": "commodity-000001",
+      "asset_id": "asset-00000001",
+      "usage_id": "usage-000000001",
+      "licence_id": "licence-00000001",
+      "settlement_id": "settle-00000001",
+      "contribution_minor": 5000,
+      "currency": "CAD"
+    },
+    "corporate_authorization": {
+      "authorization_id": "capauth-00000001",
+      "issuer_entity_id": "ent2-issuer-00000001",
+      "share_class_id": "CLASS-A",
+      "issuance_request_id": "issue-0001"
+    },
+    "capital": {
+      "capital_event_id": "cap-000000000001",
+      "share_class_id": "CLASS-A",
+      "issuance_request_id": "issue-0001",
+      "issued_to_entity_id": "ent2-buyer-000000001",
+      "shares_issued": 100,
+      "outstanding_before": 1000,
+      "outstanding_after": 1100,
+      "positions": [
+        {
+          "entity_id": "ent2-issuer-00000001",
+          "shares": 1000
+        },
+        {
+          "entity_id": "ent2-buyer-000000001",
+          "shares": 100
+        }
+      ],
+      "accounting": {
+        "currency": "CAD",
+        "debit_minor": 10000,
+        "credit_minor": 10000
+      }
+    },
+    "share_settlement": {
+      "capital_event_id": "cap-000000000001",
+      "payer_entity_id": "ent2-buyer-000000001",
+      "payee_entity_id": "ent2-issuer-00000001",
+      "amount_minor": 10000,
+      "currency": "CAD",
+      "verified_external": true,
+      "external_reference": "bank-ref-share-0001"
+    },
+    "external_trust_anchors": {
+      "campaign": {
+        "authority_id": "btg-cleanroom-campaign",
+        "accepted_for_test_only": true
+      }
+    },
+    "event_ledger": {
+      "events": [
+        {
+          "sequence": 1,
+          "prev_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+          "payload": {
+            "type": "ASSET_REGISTERED",
+            "asset_id": "asset-00000001"
+          },
+          "event_hash": "492b753d36d2c61b56e7528977a8a8bc9ed4b1343d454a73675a4ba5c5279455"
+        },
+        {
+          "sequence": 2,
+          "prev_hash": "492b753d36d2c61b56e7528977a8a8bc9ed4b1343d454a73675a4ba5c5279455",
+          "payload": {
+            "type": "LICENCE_GRANTED",
+            "licence_id": "licence-00000001",
+            "asset_id": "asset-00000001"
+          },
+          "event_hash": "ea686660179c8a7e6cd0a1c3320aafdea50ca23d3c42ced84a847136cf1fe971"
+        },
+        {
+          "sequence": 3,
+          "prev_hash": "ea686660179c8a7e6cd0a1c3320aafdea50ca23d3c42ced84a847136cf1fe971",
+          "payload": {
+            "type": "USAGE_RECORDED",
+            "usage_id": "usage-000000001",
+            "licence_id": "licence-00000001"
+          },
+          "event_hash": "c0f8011db53b359feb00aac44fa78304716b96eebae6e1c3a1eda6bed4f15b7b"
+        },
+        {
+          "sequence": 4,
+          "prev_hash": "c0f8011db53b359feb00aac44fa78304716b96eebae6e1c3a1eda6bed4f15b7b",
+          "payload": {
+            "type": "SETTLEMENT_VERIFIED",
+            "settlement_id": "settle-00000001",
+            "amount_minor": 5000,
+            "currency": "CAD"
+          },
+          "event_hash": "4bd450f2cbda0416fb9a6343068df35345bb1d4552c190c616c0e00a03509efd"
+        },
+        {
+          "sequence": 5,
+          "prev_hash": "4bd450f2cbda0416fb9a6343068df35345bb1d4552c190c616c0e00a03509efd",
+          "payload": {
+            "type": "COMMODITY_CONTRIBUTION",
+            "commodity_id": "commodity-000001",
+            "contribution_minor": 5000
+          },
+          "event_hash": "b50571b5aaab4167088be3b9b5c084a676b7e03e7c36fb6da07e0fe4bdaba3ea"
+        },
+        {
+          "sequence": 6,
+          "prev_hash": "b50571b5aaab4167088be3b9b5c084a676b7e03e7c36fb6da07e0fe4bdaba3ea",
+          "payload": {
+            "type": "CAPITAL_ISSUED",
+            "capital_event_id": "cap-000000000001",
+            "shares_issued": 100
+          },
+          "event_hash": "f81e033071b4ef5b6a1caf1c5a9dced4bcc1df35a68a064df6be3b3406463c1b"
+        }
+      ],
+      "checkpoint": {
+        "sequence": 6,
+        "head_hash": "f81e033071b4ef5b6a1caf1c5a9dced4bcc1df35a68a064df6be3b3406463c1b"
+      }
+    }
+  },
+  "signature": {
+    "alg": "Ed25519",
+    "key_id": "campaign-ed25519-1",
+    "public_key_spki_der_b64": "MCowBQYDK2VwAyEAnz7cRvy96nj9rz51YL98/JRk7IhImup4FsR9Sy6gbQI=",
+    "sig_b64": "Qr0eHk6en24ophPeSqUP/ORsUg34EiHYWedKCcfqBA1H0j5LND6X3u7sr5rHx6dVp6FY3cn75pE40lClRXoGBA=="
+  },
+  "evidence_boundary": {
+    "signature_is_legal_ownership": false,
+    "provenance_is_factual_truth": false,
+    "custody_is_sovereign_authority": false,
+    "accounting_is_external_cash_movement": false
+  }
+}
