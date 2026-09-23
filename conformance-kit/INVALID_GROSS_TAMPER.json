@@ -1,0 +1,86 @@
+{
+  "declared": {
+    "gross_minor": 1050001,
+    "originator_minor": 15750,
+    "seller_net_minor": 1034250
+  },
+  "evidence_boundary": {
+    "external_payment_truth_proven": false,
+    "legal_title_proven": false,
+    "regulatory_classification_proven": false
+  },
+  "market": {
+    "buyer_entity_id": "ent3-buyer-001",
+    "instrument_id": "eep3-bc-wildfire-train-001",
+    "originator_bps": 150,
+    "quantity": 125,
+    "seller_entity_id": "ent3-btg-issuer",
+    "unit_price_minor": 8400,
+    "usage_action": "TRAIN",
+    "venue_id": "ent3-btg-exchange"
+  },
+  "primitives": {
+    "authority": {
+      "capability": "ISSUE_AND_LICENSE",
+      "id": "auth3-issuer-001",
+      "principal_entity_id": "ent3-btg-issuer"
+    },
+    "entity": {
+      "id": "ent3-data-bc-wildfire-2026",
+      "kind": "DCO"
+    },
+    "events": [
+      {
+        "seq": 1,
+        "type": "REGISTER"
+      },
+      {
+        "seq": 2,
+        "type": "DELEGATE"
+      },
+      {
+        "seq": 3,
+        "type": "GRANT_RIGHT"
+      },
+      {
+        "seq": 4,
+        "type": "LIST"
+      },
+      {
+        "seq": 5,
+        "type": "TRADE"
+      },
+      {
+        "seq": 6,
+        "type": "SETTLE"
+      },
+      {
+        "seq": 7,
+        "type": "ENTITLE"
+      },
+      {
+        "seq": 8,
+        "type": "USE"
+      },
+      {
+        "seq": 9,
+        "type": "VALUE"
+      }
+    ],
+    "right": {
+      "actions": [
+        "DERIVE",
+        "TRAIN"
+      ],
+      "grantor_entity_id": "ent3-btg-issuer",
+      "id": "right3-training-001",
+      "subject_entity_id": "ent3-data-bc-wildfire-2026"
+    },
+    "value": {
+      "currency": "CAD"
+    }
+  },
+  "schema": "entity-v3-polyglot-transaction-v1",
+  "state_root_sha256": "3df9bf45826a5aca60316a60217630c992c130dae99675fad36abda37737491e",
+  "version": "3.0.0"
+}

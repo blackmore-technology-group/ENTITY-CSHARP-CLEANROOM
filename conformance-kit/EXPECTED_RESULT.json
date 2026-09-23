@@ -1,0 +1,7 @@
+{
+  "invalid_vector_count": 8,
+  "recovery_root_sha256": "6d6b5c0e1bd7cddf4422adafc2e1cf356feae7a18185ffc7803a23635a81967d",
+  "result_sha256": "659c787f9c1abf8ab658559e2c57d64335d863667e556e69bf12dee05c7bd75d",
+  "schema": "entity-v3-polyglot-expected-v1",
+  "state_root_sha256": "3df9bf45826a5aca60316a60217630c992c130dae99675fad36abda37737491e"
+}

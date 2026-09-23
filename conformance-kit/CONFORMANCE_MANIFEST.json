@@ -1,0 +1,20 @@
+{
+  "classification": "BTG_INTERNAL_CLEANROOM",
+  "expected": "EXPECTED_RESULT.json",
+  "invalid_vectors": [
+    "INVALID_QUANTITY_ZERO.json",
+    "INVALID_BPS_OVERFLOW.json",
+    "INVALID_SELF_TRADE.json",
+    "INVALID_USAGE_NOT_ALLOWED.json",
+    "INVALID_AUTHORITY_MISMATCH.json",
+    "INVALID_EVENT_ORDER.json",
+    "INVALID_GROSS_TAMPER.json",
+    "INVALID_ROOT_TAMPER.json"
+  ],
+  "recovery": "RECOVERY_EXPORT.json",
+  "release": "v3.0.0",
+  "schema": "entity-v3-btg-polyglot-kit-v1",
+  "sha256s": "SHA256SUMS.txt",
+  "source_release_snapshot": "b08d691922928a4e2c1fecb2d18bb3c22f5856480f140337a946ebb047ab114a",
+  "valid_vector": "VALID_TRANSACTION.json"
+}
