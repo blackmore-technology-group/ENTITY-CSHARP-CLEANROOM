@@ -10,34 +10,38 @@ permissions:
 
 jobs:
   verify:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
       - name: Verify sealed conformance kit
+        shell: pwsh
         run: |
-          python3 - <<'PY'
-          from pathlib import Path
-          import hashlib
-          root = Path('conformance-kit')
-          for line in (root/'SHA256SUMS.txt').read_text(encoding='utf-8-sig').splitlines():
-              if not line.strip(): continue
-              expected, rel = line.split('  ', 1)
-              actual = hashlib.sha256((root/rel).read_bytes()).hexdigest()
-              if actual != expected: raise SystemExit(f'checksum mismatch: {rel}')
-          print('sealed conformance kit: SHA256SUMS PASS')
-          PY
-      - uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '10.0.x'
-      - name: Compile and run campaign
-        shell: bash
+          $root = Join-Path $PWD 'conformance-kit'
+          $lines = [System.IO.File]::ReadAllLines((Join-Path $root 'SHA256SUMS.txt'))
+          foreach ($line in $lines) {
+            $clean = $line.TrimStart([char]0xFEFF)
+            if ([string]::IsNullOrWhiteSpace($clean)) { continue }
+            $parts = $clean -split '  ', 2
+            $expected = $parts[0]
+            $rel = $parts[1]
+            $actual = (Get-FileHash -Algorithm SHA256 (Join-Path $root $rel)).Hash.ToLowerInvariant()
+            if ($actual -ne $expected) { throw "checksum mismatch: $rel" }
+          }
+          Write-Host 'sealed conformance kit: SHA256SUMS PASS'
+      - uses: microsoft/setup-msbuild@v2
+      - name: Restore and build
+        shell: pwsh
         run: |
-          set -o pipefail
-          dotnet restore
-          mkdir -p evidence-ci
-          dotnet run -c Release -- test | tee evidence-ci/cleanroom-report.json
-          sha256sum evidence-ci/cleanroom-report.json > evidence-ci/cleanroom-report.sha256
-          git rev-parse HEAD > evidence-ci/commit.txt
+          nuget restore EntityCSharpCleanroom.csproj
+          msbuild EntityCSharpCleanroom.csproj /p:Configuration=Release /p:RestorePackagesConfig=true
+      - name: Run campaign
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force evidence-ci | Out-Null
+          & .\bin\Release\net48\EntityCSharpCleanroom.exe test | Tee-Object -FilePath evidence-ci\cleanroom-report.json
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          (Get-FileHash -Algorithm SHA256 evidence-ci\cleanroom-report.json).Hash.ToLowerInvariant() | Out-File -Encoding ascii evidence-ci\cleanroom-report.sha256
+          git rev-parse HEAD | Out-File -Encoding ascii evidence-ci\commit.txt
       - uses: actions/upload-artifact@v4
         with:
           name: entity-csharp-cleanroom-evidence
