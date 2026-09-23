@@ -1,0 +1,45 @@
+name: Clean-room verification
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify sealed conformance kit
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import hashlib
+          root = Path('conformance-kit')
+          for line in (root/'SHA256SUMS.txt').read_text(encoding='utf-8-sig').splitlines():
+              if not line.strip(): continue
+              expected, rel = line.split('  ', 1)
+              actual = hashlib.sha256((root/rel).read_bytes()).hexdigest()
+              if actual != expected: raise SystemExit(f'checksum mismatch: {rel}')
+          print('sealed conformance kit: SHA256SUMS PASS')
+          PY
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      - name: Compile and run campaign
+        shell: bash
+        run: |
+          set -o pipefail
+          dotnet restore
+          mkdir -p evidence-ci
+          dotnet run -c Release -- test | tee evidence-ci/cleanroom-report.json
+          sha256sum evidence-ci/cleanroom-report.json > evidence-ci/cleanroom-report.sha256
+          git rev-parse HEAD > evidence-ci/commit.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: entity-csharp-cleanroom-evidence
+          path: evidence-ci/
+          retention-days: 90
