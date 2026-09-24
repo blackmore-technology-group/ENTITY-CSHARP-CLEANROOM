@@ -11,7 +11,7 @@ string[] Lifecycle={"DCO","INSTRUMENT","LISTING","DISCLOSURE","ORDER_RFQ_AUCTION
 var Providers=new HashSet<string>{"AWS_S3","AZURE_BLOB","GOOGLE_CLOUD_STORAGE","SNOWFLAKE","DATABRICKS","POSTGRESQL","SQL_SERVER","LOCAL_FILESYSTEM","HTTP_API"};
 var Standards=new HashSet<string>{"ODRL","W3C_VC","DID","GAIA_X","IDS"};
 string Sha(byte[] b)=>Convert.ToHexString(SHA256.HashData(b)).ToLowerInvariant();
-bool Hex64(JsonNode? n)=>n is JsonValue && n.TryGetValue<string>(out var s)&&s.Length==64&&s.All(c=>char.IsDigit(c)||(c>='a'&&c<='f'));
+bool Hex64(JsonNode? n)=>n is JsonValue j&&j.TryGetValue<string>(out var s)&&s.Length==64&&s.All(c=>char.IsDigit(c)||(c>='a'&&c<='f'));
 string S(JsonObject r,string k)=>r[k]?.GetValue<string>()??"";
 bool B(JsonObject r,string k,bool want)=>r[k] is JsonValue v&&v.TryGetValue<bool>(out var b)&&b==want;
 bool ArrEq(JsonNode? n,string[] want)=>n is JsonArray a&&a.Count==want.Length&&a.Select(x=>x?.GetValue<string>()??"").SequenceEqual(want);
@@ -21,7 +21,7 @@ bool Valid(JsonObject r)=>S(r,"schema") switch{
 "entity-v3-custody-locator-v1"=>Providers.Contains(S(r,"provider"))&&Hex64(r["content_sha256"])&&B(r,"provider_is_authority",false)&&B(r,"credentials_included",false)&&B(r,"entity_identity_changes_with_provider",false),
 "entity-v3-standards-mapping-v1"=>Standards.Contains(S(r,"source_standard"))&&Hex64(r["source_sha256"])&&B(r,"silent_semantic_equivalence",false)&&B(r,"external_standard_is_not_entity_authority",true),
 "entity-v3-external-credential-evidence-v1"=>S(r,"source_standard")=="W3C_VC"&&Hex64(r["credential_sha256"])&&B(r,"credential_is_evidence_not_entity_authority",true),
-"entity-v3-resolver-deployment-v1"=>S(r,"mode")=="FEDERATED"&&r["minimum_resolvers"]?.GetValue<int>()>=2&&B(r,"resolver_is_not_authority",true)&&B(r,"single_provider_dependency_prohibited",true)&&B(r,"fail_closed",true),
+"entity-v3-resolver-deployment-v1"=>S(r,"mode")=="FEDERATED"&&(r["minimum_resolvers"]?.GetValue<int>()??0)>=2&&B(r,"resolver_is_not_authority",true)&&B(r,"single_provider_dependency_prohibited",true)&&B(r,"fail_closed",true),
 "entity-v3-exchange-adoption-profile-v1"=>B(r,"market_engine_preserved",true)&&B(r,"rights_are_traded_not_bytes",true)&&ArrEq(r["market_lifecycle"],Lifecycle),
 "entity-v3-adoption-profile-status-v1"=>ArrEq(r["core_primitives"],Primitives)&&B(r,"core_semantics_changed",false)&&B(r,"market_engine_preserved",true),
 "entity-v3-legal-classification-assertion-v1"=>S(r,"asserted_by").Length>0&&S(r,"classification").Length>0&&B(r,"classification_is_assertion_not_protocol_legal_truth",true),
