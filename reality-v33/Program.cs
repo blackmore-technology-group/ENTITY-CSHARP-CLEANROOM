@@ -3,7 +3,7 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 const string KitPath="reality-conformance-kit/ENTITY_V3_3_REALITY_CLEANROOM_KIT.min.json";
-const string KitSha="e0d6ba26baa405557bc2990e39d3022ebb8cda00ae797fab0100773cf304a6fd";
+const string KitSha="f8b39ee01fb7346f33a57530e925b545d2bf9a770c7ec60724e28a4971d55a46";
 const string Expected="82bd1f1fb328edd37a26d8ea60ede5a599c7d9af5027bffd73b9e52843b5a51d";
 string[] P={"ENTITY","AUTHORITY","RIGHT","EVENT","VALUE"};
 var States=new HashSet<string>{"OBSERVED","ASSERTED","INFERRED","ATTESTED","EXTERNALLY_VERIFIED","ADJUDICATED","DISPUTED","REVOKED","UNKNOWN"};
