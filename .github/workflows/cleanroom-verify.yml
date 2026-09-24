@@ -28,19 +28,36 @@ jobs:
             if ($actual -ne $expected) { throw "checksum mismatch: $rel" }
           }
           Write-Host 'sealed conformance kit: SHA256SUMS PASS'
+      - name: Fetch sealed v3.2 adoption kit
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force adoption-conformance-kit | Out-Null
+          Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/blackmore-technology-group/ENTITY/ee3587a6e65c2565eaab2e815e85415ab705ea47/protocol/v3/ENTITY_V3_2_ADOPTION_CLEANROOM_KIT.min.json' -OutFile 'adoption-conformance-kit/ENTITY_V3_2_ADOPTION_CLEANROOM_KIT.min.json'
+          $actual=(Get-FileHash -Algorithm SHA256 'adoption-conformance-kit/ENTITY_V3_2_ADOPTION_CLEANROOM_KIT.min.json').Hash.ToLowerInvariant()
+          if ($actual -ne '44e7a00f910c89aced3b3c1b5e9cba486809ca313e9bfb4b7bc9266095c10c14') { throw 'sealed v3.2 kit SHA-256 mismatch' }
       - uses: microsoft/setup-msbuild@v2
-      - name: Restore and build
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Restore and build legacy verifier
         shell: pwsh
         run: |
           nuget restore EntityCSharpCleanroom.csproj
           msbuild EntityCSharpCleanroom.csproj /p:Configuration=Release /p:RestorePackagesConfig=true
-      - name: Run campaign
+      - name: Run campaigns
         shell: pwsh
         run: |
           New-Item -ItemType Directory -Force evidence-ci | Out-Null
           & .\bin\Release\net48\EntityCSharpCleanroom.exe test | Tee-Object -FilePath evidence-ci\cleanroom-report.json
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          (Get-FileHash -Algorithm SHA256 evidence-ci\cleanroom-report.json).Hash.ToLowerInvariant() | Out-File -Encoding ascii evidence-ci\cleanroom-report.sha256
+          dotnet run --project adoption-v32/AdoptionV32.csproj -c Release | Tee-Object -FilePath evidence-ci\adoption-v3.2-report.json
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $a=Get-Content evidence-ci\adoption-v3.2-report.json -Raw
+          if ($a -notmatch '"vectors_passed"\s*:\s*16') { throw 'v3.2 vector count mismatch' }
+          if ($a -notmatch '1eb59e09ab08da86bfd8584df4a64ba331f7bbbce3d236b9b94f351606c90e18') { throw 'v3.2 result hash mismatch' }
+          if ($a -notmatch '"overall_valid"\s*:\s*true') { throw 'v3.2 overall invalid' }
+          (Get-FileHash -Algorithm SHA256 evidence-ci\cleanroom-report.json).Hash.ToLowerInvariant() | Out-File -Encoding ascii evidence-ci\legacy-report.sha256
+          (Get-FileHash -Algorithm SHA256 evidence-ci\adoption-v3.2-report.json).Hash.ToLowerInvariant() | Out-File -Encoding ascii evidence-ci\adoption-report.sha256
           git rev-parse HEAD | Out-File -Encoding ascii evidence-ci\commit.txt
       - uses: actions/upload-artifact@v4
         with:
