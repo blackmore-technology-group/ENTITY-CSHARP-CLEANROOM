@@ -39,9 +39,9 @@ jobs:
         shell: pwsh
         run: |
           New-Item -ItemType Directory -Force reality-conformance-kit | Out-Null
-          Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/blackmore-technology-group/ENTITY/2529acfdc7cccd824b629945cc196a484515142a/protocol/v3/ENTITY_V3_3_REALITY_CLEANROOM_KIT.min.json' -OutFile 'reality-conformance-kit/ENTITY_V3_3_REALITY_CLEANROOM_KIT.min.json'
+          Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/blackmore-technology-group/ENTITY/8d0d60948c584de9bdff665ed034480c08254509/protocol/v3/ENTITY_V3_3_REALITY_CLEANROOM_KIT.min.json' -OutFile 'reality-conformance-kit/ENTITY_V3_3_REALITY_CLEANROOM_KIT.min.json'
           $actual=(Get-FileHash -Algorithm SHA256 'reality-conformance-kit/ENTITY_V3_3_REALITY_CLEANROOM_KIT.min.json').Hash.ToLowerInvariant()
-          if ($actual -ne 'e0d6ba26baa405557bc2990e39d3022ebb8cda00ae797fab0100773cf304a6fd') { throw 'sealed v3.3 kit SHA-256 mismatch' }
+          if ($actual -ne 'f8b39ee01fb7346f33a57530e925b545d2bf9a770c7ec60724e28a4971d55a46') { throw 'sealed v3.3 kit SHA-256 mismatch' }
       - uses: microsoft/setup-msbuild@v2
       - uses: actions/setup-dotnet@v4
         with:
