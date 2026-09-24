@@ -35,6 +35,13 @@ jobs:
           Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/blackmore-technology-group/ENTITY/ee3587a6e65c2565eaab2e815e85415ab705ea47/protocol/v3/ENTITY_V3_2_ADOPTION_CLEANROOM_KIT.min.json' -OutFile 'adoption-conformance-kit/ENTITY_V3_2_ADOPTION_CLEANROOM_KIT.min.json'
           $actual=(Get-FileHash -Algorithm SHA256 'adoption-conformance-kit/ENTITY_V3_2_ADOPTION_CLEANROOM_KIT.min.json').Hash.ToLowerInvariant()
           if ($actual -ne '44e7a00f910c89aced3b3c1b5e9cba486809ca313e9bfb4b7bc9266095c10c14') { throw 'sealed v3.2 kit SHA-256 mismatch' }
+      - name: Fetch sealed v3.3 reality kit
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force reality-conformance-kit | Out-Null
+          Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/blackmore-technology-group/ENTITY/2529acfdc7cccd824b629945cc196a484515142a/protocol/v3/ENTITY_V3_3_REALITY_CLEANROOM_KIT.min.json' -OutFile 'reality-conformance-kit/ENTITY_V3_3_REALITY_CLEANROOM_KIT.min.json'
+          $actual=(Get-FileHash -Algorithm SHA256 'reality-conformance-kit/ENTITY_V3_3_REALITY_CLEANROOM_KIT.min.json').Hash.ToLowerInvariant()
+          if ($actual -ne 'e0d6ba26baa405557bc2990e39d3022ebb8cda00ae797fab0100773cf304a6fd') { throw 'sealed v3.3 kit SHA-256 mismatch' }
       - uses: microsoft/setup-msbuild@v2
       - uses: actions/setup-dotnet@v4
         with:
@@ -59,6 +66,16 @@ jobs:
           (Get-FileHash -Algorithm SHA256 evidence-ci\cleanroom-report.json).Hash.ToLowerInvariant() | Out-File -Encoding ascii evidence-ci\legacy-report.sha256
           (Get-FileHash -Algorithm SHA256 evidence-ci\adoption-v3.2-report.json).Hash.ToLowerInvariant() | Out-File -Encoding ascii evidence-ci\adoption-report.sha256
           git rev-parse HEAD | Out-File -Encoding ascii evidence-ci\commit.txt
+      - name: Run v3.3 reality campaign
+        shell: pwsh
+        run: |
+          dotnet run --project reality-v33/RealityV33.csproj -c Release | Tee-Object -FilePath evidence-ci\reality-v3.3-report.json
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $r=Get-Content evidence-ci\reality-v3.3-report.json -Raw
+          if ($r -notmatch '"vectors_passed"\s*:\s*20') { throw 'v3.3 vector count mismatch' }
+          if ($r -notmatch '82bd1f1fb328edd37a26d8ea60ede5a599c7d9af5027bffd73b9e52843b5a51d') { throw 'v3.3 result hash mismatch' }
+          if ($r -notmatch '"overall_valid"\s*:\s*true') { throw 'v3.3 overall invalid' }
+          (Get-FileHash -Algorithm SHA256 evidence-ci\reality-v3.3-report.json).Hash.ToLowerInvariant() | Add-Content evidence-ci\reports.sha256
       - uses: actions/upload-artifact@v4
         with:
           name: entity-csharp-cleanroom-evidence
