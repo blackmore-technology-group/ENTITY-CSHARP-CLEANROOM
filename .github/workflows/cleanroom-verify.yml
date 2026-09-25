@@ -83,16 +83,16 @@ jobs:
           if ($r -notmatch '"vectors_passed"\s*:\s*20') { throw 'v3.3 vector count mismatch' }
           if ($r -notmatch '82bd1f1fb328edd37a26d8ea60ede5a599c7d9af5027bffd73b9e52843b5a51d') { throw 'v3.3 result hash mismatch' }
           if ($r -notmatch '"overall_valid"\s*:\s*true') { throw 'v3.3 overall invalid' }
-      - name: Run v3.4 global passport campaign
+      - name: Run v3.4.2 global passport campaign
         shell: pwsh
         run: |
-          dotnet run --project passport-v34/PassportV34.csproj -c Release | Tee-Object -FilePath evidence-ci\passport-v3.4-report.json
+          dotnet run --project passport-v34/PassportV34.csproj -c Release | Tee-Object -FilePath evidence-ci\passport-v3.4.2-report.json
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          $r=Get-Content evidence-ci\passport-v3.4-report.json -Raw
-          if ($r -notmatch '"vectors_passed"\s*:\s*24') { throw 'v3.4 vector count mismatch' }
-          if ($r -notmatch 'ac7504cce70576008cff069607619660a4b9bf0cad43b3f3de81078f1e80d9ba') { throw 'v3.4 result hash mismatch' }
-          if ($r -notmatch '"overall_valid"\s*:\s*true') { throw 'v3.4 overall invalid' }
-          (Get-FileHash -Algorithm SHA256 evidence-ci\passport-v3.4-report.json).Hash.ToLowerInvariant() | Add-Content evidence-ci\reports.sha256
+          $r=Get-Content evidence-ci\passport-v3.4.2-report.json -Raw
+          if ($r -notmatch '"vectors_passed"\s*:\s*26') { throw 'v3.4.2 vector count mismatch' }
+          if ($r -notmatch '45af773554a7191c1b49a75c636a1106afb1de36d788bb00d7af56097b8d1b0e') { throw 'v3.4.2 result hash mismatch' }
+          if ($r -notmatch '"overall_valid"\s*:\s*true') { throw 'v3.4.2 overall invalid' }
+          (Get-FileHash -Algorithm SHA256 evidence-ci\passport-v3.4.2-report.json).Hash.ToLowerInvariant() | Add-Content evidence-ci\reports.sha256
       - uses: actions/upload-artifact@v4
         with:
           name: entity-csharp-cleanroom-evidence
