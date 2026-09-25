@@ -24,7 +24,7 @@ CI verifies sealed-kit checksums before executing the language-native classifier
 
 Published v3.4.1 target:
 
-- release: **v3.4.0 — Global Passport & Continuous Provenance**;
+- release: **v3.4.1 — Protocol Origin Lineage & Sovereign User Bootstrap**;
 - sealed vectors: **24/24 PASS** — 12 valid / 12 invalid;
 - sealed-kit SHA-256: `f95c2b347da97742fed3f20611f0eec2fd3df48694fed9494fb07163c537cfb7`;
 - canonical cross-language result SHA-256: `ac7504cce70576008cff069607619660a4b9bf0cad43b3f3de81078f1e80d9ba`.
