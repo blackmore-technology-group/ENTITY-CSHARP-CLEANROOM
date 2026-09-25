@@ -3,11 +3,11 @@
 [![Clean-room verification](https://github.com/blackmore-technology-group/ENTITY-CSHARP-CLEANROOM/actions/workflows/cleanroom-verify.yml/badge.svg)](https://github.com/blackmore-technology-group/ENTITY-CSHARP-CLEANROOM/actions/workflows/cleanroom-verify.yml)
 [![License](https://img.shields.io/github/license/blackmore-technology-group/ENTITY-CSHARP-CLEANROOM)](LICENSE)
 
-**BTG-controlled C# / .NET conformance baseline for ENTITY v3.4.1.**
+**BTG-controlled C# / .NET conformance baseline for ENTITY v3.4.2.**
 
 > This repository is maintained and controlled by Blackmore Technology Group. It is cross-language reproducibility evidence. It is **not** an unrelated third-party implementation and must not be cited as independent external validation.
 
-[ENTITY](https://github.com/blackmore-technology-group/ENTITY) · [v3.4.1 release](https://github.com/blackmore-technology-group/ENTITY/releases/tag/v3.4.1) · [Developer portal](https://github.com/blackmore-technology-group/ENTITY/blob/main/DEVELOPERS.md) · [Engineering evidence](https://github.com/blackmore-technology-group/ENTITY/blob/main/docs/ENGINEERING_EVIDENCE.md) · [Independent interoperability challenge](https://github.com/blackmore-technology-group/ENTITY/blob/main/docs/INTEROPERABILITY_CHALLENGE.md)
+[ENTITY](https://github.com/blackmore-technology-group/ENTITY) · [v3.4.2 release](https://github.com/blackmore-technology-group/ENTITY/releases/tag/v3.4.2) · [Developer portal](https://github.com/blackmore-technology-group/ENTITY/blob/main/DEVELOPERS.md) · [Engineering evidence](https://github.com/blackmore-technology-group/ENTITY/blob/main/docs/ENGINEERING_EVIDENCE.md) · [Independent interoperability challenge](https://github.com/blackmore-technology-group/ENTITY/blob/main/docs/INTEROPERABILITY_CHALLENGE.md)
 
 ## What this repository verifies
 
@@ -20,14 +20,14 @@ This C# / .NET implementation exercises published ENTITY conformance campaigns, 
 
 CI verifies sealed-kit checksums before executing the language-native classifiers and retains verification evidence as workflow artifacts.
 
-## ENTITY v3.4.1 Global Passport campaign
+## ENTITY v3.4.2 Global Passport campaign
 
-Published v3.4.1 target:
+Published v3.4.2 target:
 
 - release: **v3.4.0 — Global Passport & Continuous Provenance**;
 - sealed vectors: **24/24 PASS** — 12 valid / 12 invalid;
-- sealed-kit SHA-256: `f95c2b347da97742fed3f20611f0eec2fd3df48694fed9494fb07163c537cfb7`;
-- canonical cross-language result SHA-256: `ac7504cce70576008cff069607619660a4b9bf0cad43b3f3de81078f1e80d9ba`.
+- sealed-kit SHA-256: `ced70113f1d153627eb972b11adbf20e502ed086e0b13e8abf1dc5adc4c2e716`;
+- canonical cross-language result SHA-256: `45af773554a7191c1b49a75c636a1106afb1de36d788bb00d7af56097b8d1b0e`.
 
 Run the .NET v3.4 campaign:
 
@@ -49,7 +49,7 @@ See [`.github/workflows/cleanroom-verify.yml`](.github/workflows/cleanroom-verif
 
 ## Where this fits in ENTITY
 
-ENTITY v3.4.1 adds one universal **Global Passport** with composable jurisdiction, industry, privacy, trust and technical profiles. The protocol is intended to preserve identity, authority, rights, evidence, provenance and portable economic state without making infrastructure possession equivalent to sovereign authority.
+ENTITY v3.4.2 adds one universal **Global Passport** with composable jurisdiction, industry, privacy, trust and technical profiles. The protocol is intended to preserve identity, authority, rights, evidence, provenance and portable economic state without making infrastructure possession equivalent to sovereign authority.
 
 The main repository also publishes executable implementation packages for Healthcare, Finance, Manufacturing, AI, Robotics and Defence/Public-Unclassified.
 
