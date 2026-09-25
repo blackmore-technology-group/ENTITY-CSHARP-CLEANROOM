@@ -3,53 +3,75 @@
 [![Clean-room verification](https://github.com/blackmore-technology-group/ENTITY-CSHARP-CLEANROOM/actions/workflows/cleanroom-verify.yml/badge.svg)](https://github.com/blackmore-technology-group/ENTITY-CSHARP-CLEANROOM/actions/workflows/cleanroom-verify.yml)
 [![License](https://img.shields.io/github/license/blackmore-technology-group/ENTITY-CSHARP-CLEANROOM)](LICENSE)
 
-**BTG-controlled C# / .NET conformance baseline for ENTITY v3.3.**
+**BTG-controlled C# / .NET conformance baseline for ENTITY v3.4.0.**
 
 > This repository is maintained and controlled by Blackmore Technology Group. It is cross-language reproducibility evidence. It is **not** an unrelated third-party implementation and must not be cited as independent external validation.
 
-[ENTITY](https://github.com/blackmore-technology-group/ENTITY) | [v3.3.0 release](https://github.com/blackmore-technology-group/ENTITY/releases/tag/v3.3.0) | [Engineering evidence](https://github.com/blackmore-technology-group/ENTITY/blob/main/docs/ENGINEERING_EVIDENCE.md) | [Independent interoperability challenge](https://github.com/blackmore-technology-group/ENTITY/blob/main/docs/INTEROPERABILITY_CHALLENGE.md)
+[ENTITY](https://github.com/blackmore-technology-group/ENTITY) · [v3.4.0 release](https://github.com/blackmore-technology-group/ENTITY/releases/tag/v3.4.0) · [Developer portal](https://github.com/blackmore-technology-group/ENTITY/blob/main/DEVELOPERS.md) · [Engineering evidence](https://github.com/blackmore-technology-group/ENTITY/blob/main/docs/ENGINEERING_EVIDENCE.md) · [Independent interoperability challenge](https://github.com/blackmore-technology-group/ENTITY/blob/main/docs/INTEROPERABILITY_CHALLENGE.md)
 
 ## What this repository verifies
 
-This implementation exercises the published ENTITY conformance campaigns in C# / .NET, including the v3.2 adoption campaign and the v3.3 Verifiable Reality campaign. CI verifies the sealed kit checksum before executing the language-native classifier.
+This C# / .NET implementation exercises published ENTITY conformance campaigns, including:
 
-For v3.3 the required public result is:
+- the frozen Protocol 1.0 / earlier clean-room baseline;
+- the v3.2 adoption campaign;
+- the v3.3 Verifiable Reality campaign;
+- the **v3.4 Global Passport campaign**.
 
-- release: 3.3.0
-- protected ENTITY release commit: 9c79f987207592cb6791e1a8956f23351cdfb2d3
-- vectors: **20/20** (10 valid / 10 invalid)
-- sealed-kit SHA-256: 8b39ee01fb7346f33a57530e925b545d2bf9a770c7ec60724e28a4971d55a46
-- deterministic result SHA-256: 82bd1f1fb328edd37a26d8ea60ede5a599c7d9af5027bffd73b9e52843b5a51d
+CI verifies sealed-kit checksums before executing the language-native classifiers and retains verification evidence as workflow artifacts.
 
-## Run the v3.3 campaign
+## ENTITY v3.4.0 Global Passport campaign
 
-`	ext
-dotnet run --project reality-v33/RealityV33.csproj -c Release
-`
+Published v3.4 target:
 
-The primary v3.3 implementation is $(System.Collections.Hashtable.layout).
+- release: **v3.4.0 — Global Passport & Continuous Provenance**;
+- sealed vectors: **24/24 PASS** — 12 valid / 12 invalid;
+- sealed-kit SHA-256: `5869a3fd0ed6cb9f65bf4b20c3bd64933cad82f4aef05c5809e2e05af921f230`;
+- canonical cross-language result SHA-256: `ac7504cce70576008cff069607619660a4b9bf0cad43b3f3de81078f1e80d9ba`.
+
+Run the .NET v3.4 campaign:
+
+```powershell
+dotnet run --project passport-v34/PassportV34.csproj -c Release
+```
+
+The GitHub Actions workflow checks that the report contains 24 passing vectors, the canonical result hash above, and `overall_valid: true`.
 
 ## Other controlled campaigns
 
-`	ext
-.\\bin\\Release\\net48\\EntityCSharpCleanroom.exe test`ndotnet run --project adoption-v32/AdoptionV32.csproj -c Release
-`
+```powershell
+.\bin\Release\net48\EntityCSharpCleanroom.exe test
+dotnet run --project adoption-v32/AdoptionV32.csproj -c Release
+dotnet run --project reality-v33/RealityV33.csproj -c Release
+```
 
-See .github/workflows/cleanroom-verify.yml for the complete CI procedure, exact toolchain setup, checksum verification, evidence capture and artifact retention.
+See [`.github/workflows/cleanroom-verify.yml`](.github/workflows/cleanroom-verify.yml) for the complete CI procedure, toolchain setup, checksum verification, evidence capture and artifact retention.
+
+## Where this fits in ENTITY
+
+ENTITY v3.4.0 adds one universal **Global Passport** with composable jurisdiction, industry, privacy, trust and technical profiles. The protocol is intended to preserve identity, authority, rights, evidence, provenance and portable economic state without making infrastructure possession equivalent to sovereign authority.
+
+The main repository also publishes executable implementation packages for Healthcare, Finance, Manufacturing, AI, Robotics and Defence/Public-Unclassified.
+
+If you are evaluating ENTITY rather than this .NET baseline specifically, start at the [ENTITY repository](https://github.com/blackmore-technology-group/ENTITY) or the [Developer Portal](https://github.com/blackmore-technology-group/ENTITY/blob/main/DEVELOPERS.md).
 
 ## Verification boundary
 
-A passing result shows that this BTG-controlled C# / .NET implementation classifies the sealed public vectors consistently with the published campaign. It does **not** establish that a real-world claim is objectively true, and it does **not** establish independent external interoperability merely because another BTG-controlled language converges on the same result.
+A passing result shows that this **BTG-controlled C# / .NET implementation** classifies the sealed public vectors consistently with the published campaign.
+
+It does **not** establish unrelated third-party validation, objective truth of an external-world claim, regulatory compliance, legal title, accounting fair value, or independent live interoperability merely because another BTG-controlled language converges on the same result.
 
 The stronger external question remains open:
 
-> Can an unrelated engineer or organization reproduce the same semantics from public specification/test material without using BTG implementation code?
+> Can an unrelated engineer or organization reproduce ENTITY semantics from public specifications and sealed test material without using BTG implementation code?
 
-A deliberately narrow starting point is [ENTITY issue #27](https://github.com/blackmore-technology-group/ENTITY/issues/27).
+That is the purpose of the [ENTITY interoperability challenge](https://github.com/blackmore-technology-group/ENTITY/blob/main/docs/INTEROPERABILITY_CHALLENGE.md).
 
 ## Contributing
 
-Reproducible build failures, portability fixes, language-idiomatic improvements, test corrections and specification ambiguities are welcome. If your goal is to produce **independent** conformance evidence, use a repository controlled outside BTG and follow the independence rules in the [interoperability challenge](https://github.com/blackmore-technology-group/ENTITY/blob/main/docs/INTEROPERABILITY_CHALLENGE.md).
+Useful contributions include reproducible build failures, portability fixes, language-idiomatic improvements, test corrections, specification ambiguities and independently authored counterexamples.
+
+If your goal is to produce **independent** conformance evidence, use a repository controlled outside BTG and follow the independence rules in the interoperability challenge.
 
 ## License
 
