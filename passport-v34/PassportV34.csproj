@@ -4,5 +4,19 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>entity-passport-v34</ToolCommandName>
+    <PackageId>Blackmore.Entity.Passport.V34</PackageId>
+    <Version>3.4.2</Version>
+    <Authors>Blackmore Technology Group Limited</Authors>
+    <Description>BTG-controlled ENTITY v3.4.2 Global Passport clean-room verifier for reproducible conformance testing.</Description>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageProjectUrl>https://blackmore-technology-group.github.io/ENTITY-DOCS/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/blackmore-technology-group/ENTITY-CSHARP-CLEANROOM</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>authorization;provenance;conformance;interoperability;verification</PackageTags>
   </PropertyGroup>
+  <ItemGroup>
+    <Content Include="../passport-conformance-kit-v342/ENTITY_V3_4_2_GLOBAL_PASSPORT_CLEANROOM_KIT.min.json" Link="passport-conformance-kit-v342/ENTITY_V3_4_2_GLOBAL_PASSPORT_CLEANROOM_KIT.min.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
 </Project>
