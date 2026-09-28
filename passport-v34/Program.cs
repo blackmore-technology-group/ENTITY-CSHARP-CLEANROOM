@@ -2,7 +2,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
-const string KitPath="passport-conformance-kit-v342/ENTITY_V3_4_2_GLOBAL_PASSPORT_CLEANROOM_KIT.min.json";
+var KitPath=Path.Combine(AppContext.BaseDirectory,"passport-conformance-kit-v342","ENTITY_V3_4_2_GLOBAL_PASSPORT_CLEANROOM_KIT.min.json");
 const string KitSha="ced70113f1d153627eb972b11adbf20e502ed086e0b13e8abf1dc5adc4c2e716";
 const string Expected="45af773554a7191c1b49a75c636a1106afb1de36d788bb00d7af56097b8d1b0e";
 string[] Core={"ENTITY","AUTHORITY","RIGHT","EVENT","VALUE"};
