@@ -1,0 +1,49 @@
+name: Publish NuGet tool
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Verify tag matches package version
+        shell: bash
+        run: |
+          set -euo pipefail
+          TAG_VERSION="${GITHUB_REF_NAME#v}"
+          PACKAGE_VERSION="$(python - <<'PY'
+import xml.etree.ElementTree as ET
+root=ET.parse('passport-v34/PassportV34.csproj').getroot()
+print(root.findtext('.//Version'))
+PY
+)"
+          test "$TAG_VERSION" = "$PACKAGE_VERSION"
+      - name: Pack and execute local tool
+        shell: bash
+        run: |
+          set -o pipefail
+          mkdir -p package-ci tool-ci
+          dotnet pack passport-v34/PassportV34.csproj -c Release -o package-ci
+          dotnet tool install --tool-path tool-ci Blackmore.Entity.Passport.V34 --version "${GITHUB_REF_NAME#v}" --add-source package-ci
+          ./tool-ci/entity-passport-v34 | tee package-output.json
+          grep -q '45af773554a7191c1b49a75c636a1106afb1de36d788bb00d7af56097b8d1b0e' package-output.json
+          grep -Eq '"overall_valid"[[:space:]]*:[[:space:]]*true' package-output.json
+      - name: NuGet login with OIDC
+        uses: NuGet/login@v1
+        id: login
+        with:
+          user: ${{ vars.NUGET_USER }}
+      - name: Publish package
+        shell: bash
+        run: dotnet nuget push package-ci/Blackmore.Entity.Passport.V34.*.nupkg --api-key '${{ steps.login.outputs.NUGET_API_KEY }}' --source https://api.nuget.org/v3/index.json
