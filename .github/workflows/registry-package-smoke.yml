@@ -1,0 +1,29 @@
+name: Registry package smoke
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  package-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Pack, install and execute .NET tool
+        shell: bash
+        run: |
+          set -o pipefail
+          mkdir -p package-ci tool-ci
+          dotnet pack passport-v34/PassportV34.csproj -c Release -o package-ci
+          dotnet tool install --tool-path tool-ci Blackmore.Entity.Passport.V34 --version 3.4.2 --add-source package-ci
+          ./tool-ci/entity-passport-v34 | tee package-output.json
+          grep -q '"vectors_passed": 26' package-output.json || grep -q '"vectors_passed".*26' package-output.json
+          grep -q '45af773554a7191c1b49a75c636a1106afb1de36d788bb00d7af56097b8d1b0e' package-output.json
+          grep -q '"overall_valid": true' package-output.json || grep -q '"overall_valid".*true' package-output.json
+          echo '.NET tool package smoke: PASS'
